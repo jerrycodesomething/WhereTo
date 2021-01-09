@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import java.sql.SQLOutput;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -11,13 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Hello Aiman");
-        System.out.println("Hallo guys!");
-
-        System.out.println("Im hungry guys :(");
-        System.out.print("Push from HUANG YIFEI");
-        System.out.print("Push from HUANG YIFEI");
-        System.out.println("yahooo!");
-
+        System.out.println("HAHA I DELETED EVERYTHING");
+        System.out.println("gogol");
     }
 }
