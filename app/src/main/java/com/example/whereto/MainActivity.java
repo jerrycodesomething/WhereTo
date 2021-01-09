@@ -15,5 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("HAHA I DELETED EVERYTHING");
         System.out.println("yifei is here");
+        System.out.println("Hi Aiman");
     }
 }
