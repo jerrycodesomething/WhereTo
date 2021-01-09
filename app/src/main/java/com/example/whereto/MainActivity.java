@@ -11,16 +11,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Hello Aiman");
-        System.out.println("Hallo guys!");
-
-        System.out.println("Im hungry guys :(");
-        System.out.print("Push from HUANG YIFEI");
-        System.out.print("Push from HUANG YIFEI");
-
-        System.out.print("I'm Jerry");
-
-        System.out.println("Hi Yifei");
-
+        System.out.println("HAHA I DELETED EVERYTHING");
     }
 }
