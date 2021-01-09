@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "603912313198",
+    "firebase_url": "https://cubatrytest-132a6-default-rtdb.firebaseio.com",
+    "project_id": "cubatrytest-132a6",
+    "storage_bucket": "cubatrytest-132a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603912313198:android:ce67f5289f94a39630497f",
+        "android_client_info": {
+          "package_name": "com.example.whereto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603912313198-rp70tqno3ilh50ku9gtr19vlgjlir1fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASp4dpv9pVMZcdoIYCi8x17pIrW8X5S0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603912313198-rp70tqno3ilh50ku9gtr19vlgjlir1fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603912313198:android:ff600b58ec87adda30497f",
+        "android_client_info": {
+          "package_name": "fsktm.edu.cubatrytest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603912313198-rp70tqno3ilh50ku9gtr19vlgjlir1fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASp4dpv9pVMZcdoIYCi8x17pIrW8X5S0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603912313198-rp70tqno3ilh50ku9gtr19vlgjlir1fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
