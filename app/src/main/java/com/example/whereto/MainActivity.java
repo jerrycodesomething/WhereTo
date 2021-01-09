@@ -13,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("HAHA I DELETED EVERYTHING");
+        System.out.println("THIS IS HERWKLSDJFLKSJD FLKASDF ASDF AS");
+        System.out.println("heheheh");
     }
 }
