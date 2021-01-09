@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("Im hungry guys :(");
         System.out.print("Push from HUANG YIFEI");
+        System.out.print("Push from HUANG YIFEI");
 
         System.out.print("I'm Jerry");
 
