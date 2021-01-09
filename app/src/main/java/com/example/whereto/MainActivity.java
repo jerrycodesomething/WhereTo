@@ -19,5 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.print("I'm Jerry");
 
+        System.out.println("Hi Yifei");
+
     }
 }
