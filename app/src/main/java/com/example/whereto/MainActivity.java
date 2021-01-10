@@ -13,14 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("Hello Aiman");
-        System.out.println("Hallo guys!");
-
-        System.out.println("Im hungry guys :(");
-        System.out.print("Push from HUANG YIFEI");
-
-        System.out.println("gogol");
-        System.out.println("hihihi");
-        System.out.println("heyheyhey");
+        System.out.println("HAHA I DELETED EVERYTHING");
+        System.out.println("THIS IS HERWKLSDJFLKSJD FLKASDF ASDF AS");
+        System.out.println("heheheh");
     }
 }
