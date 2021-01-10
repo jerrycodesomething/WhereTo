@@ -1,16 +1,16 @@
 package com.example.whereto;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,7 +20,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
 
     LinearLayout contentView;
     static final float END_SCALE = 0.7f;
-    ImageView menuIcon,backtoLoginPage;
+    ImageView menuIcon,backtoLoginPage,iv_checkin;
 
 
     //Drawer menu
@@ -32,6 +32,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+        iv_checkin = findViewById(R.id.iv_checkin);
         backtoLoginPage = findViewById(R.id.backtoLogin);
         contentView = findViewById(R.id.content);
         menuIcon = findViewById(R.id.sidebarMenu);
@@ -46,6 +47,13 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
+        iv_checkin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(homepage.this,CheckinActivity.class);
+                startActivity(intent);
+            }
+        });
 
         navigationDrawer();
 
