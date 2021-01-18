@@ -8,6 +8,9 @@
     tools:context=".homepage"
     android:id="@+id/drawer_layout">
 
+
+
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
@@ -35,6 +38,14 @@
             android:padding="20dp">
 
             <ImageView
+                android:id="@+id/iv_checkin"
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:src="@drawable/ic_checkin"
+                android:layout_toLeftOf="@id/backtoLogin"
+                android:layout_marginLeft="30dp"/>
+
+            <ImageView
                 android:id="@+id/sidebarMenu"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -52,6 +63,8 @@
 
         </RelativeLayout>
 
+
+
     </LinearLayout>
 
 
@@ -63,4 +76,7 @@
 
 
 
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
+
