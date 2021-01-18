@@ -128,6 +128,16 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
                 break;
             case R.id.nav_profile:
+                Intent intent2 = new Intent(homepage.this,Profile.class);
+                startActivity(intent2);
+                break;
+            case R.id.nav_settings:
+                Intent intent3 = new Intent(homepage.this,Settings.class);
+                startActivity(intent3);
+                break;
+            case R.id.nav_help:
+                Intent intent4 = new Intent(homepage.this,Help.class);
+                startActivity(intent4);
                 break;
         }
 

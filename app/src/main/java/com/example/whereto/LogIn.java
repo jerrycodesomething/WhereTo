@@ -52,7 +52,7 @@ public class LogIn extends AppCompatActivity {
     }
 
     public void goToForgetPassword(View view){
-        Intent intent = new Intent(this,ForgetPass.class);
+        Intent intent = new Intent(this, ForgetPass.class);
         startActivity(intent);
     }
 }

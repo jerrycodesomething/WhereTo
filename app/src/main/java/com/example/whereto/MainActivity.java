@@ -11,8 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.SQLOutput;
-
 public class MainActivity extends AppCompatActivity {
 
     //move to the next screen after the splash screen appears,create variable
