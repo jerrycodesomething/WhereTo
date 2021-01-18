@@ -83,10 +83,12 @@
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/black"
                     android:inputType="text"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <RelativeLayout
+                android:id="@+id/forgetpassblock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -110,6 +112,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"/>
 
+
             </RelativeLayout>
 
             <Button
@@ -122,11 +125,8 @@
                 android:elevation="5dp"
                 android:layout_marginTop="20dp"/>
 
-
-
-
-
         </LinearLayout>
+
 
 
     </LinearLayout>

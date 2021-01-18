@@ -9,9 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereTo">
-        <activity android:name=".sharing_privacy_setting"></activity>
+        <activity android:name=".homepage"></activity>
+        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
+        <activity android:name=".AccountStatus" />
+        <activity android:name=".FaqAbout" />
+        <activity android:name=".Profile" />
+        <activity android:name=".Help" />
+        <activity android:name=".sharing_privacy_setting"/>
         <activity android:name=".CheckinActivity" />
-        <activity android:name=".homepage" />
         <activity android:name=".Settings" />
         <activity android:name=".SUPorSUPWG" />
         <activity android:name=".SignUp" />
