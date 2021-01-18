@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereTo">
+        <activity android:name=".sharing_privacy_setting"></activity>
+        <activity android:name=".CheckinActivity" />
+        <activity android:name=".homepage" />
+        <activity android:name=".Settings" />
+        <activity android:name=".SUPorSUPWG" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".LogIn" />
+        <activity android:name=".ForgetPass" />
+        <activity android:name=".WelcomeScreen" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
