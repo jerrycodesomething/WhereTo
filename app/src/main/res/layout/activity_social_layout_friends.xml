@@ -21,23 +21,23 @@
         android:orientation="horizontal">
 
 
-        <Button
-            android:id="@+id/my_friends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserrat"
-            android:background="@drawable/btn_share"
-            android:text="My Friends" />
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/add_request"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/montserrat"
-            android:background="@drawable/btn_share"
-            android:text="Add Request" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Friends" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Request" />
+        </com.google.android.material.tabs.TabLayout>
+
+
     </LinearLayout>
 
     <EditText
