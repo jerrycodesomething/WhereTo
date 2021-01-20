@@ -23,4 +23,6 @@ public class WelcomeScreen extends AppCompatActivity {
         Intent goSignUp = new Intent(this,SUPorSUPWG.class);
         startActivity(goSignUp);
     }
+
+
 }

@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/montserrat"
             android:includeFontPadding="false"
-            android:text="WHERETO"
+
             android:textSize="20sp"
             android:textColor="@color/black"/>
 
@@ -49,9 +49,10 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/settings_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="WhereTo"
+
                 android:drawableLeft="@drawable/baseline_edit_black_18dp"
                 android:drawablePadding="10dp"
                 android:inputType="textPersonName"/>
@@ -64,9 +65,10 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/settings_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="WhereTo123"
+
                 android:drawableLeft="@drawable/baseline_email_black_18dp"
                 android:drawablePadding="10dp"
                 android:inputType="textPersonName"/>
@@ -79,9 +81,10 @@
             android:layout_marginBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/settings_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="WhereTo@gmail.com"
+
                 android:drawableLeft="@drawable/baseline_email_black_18dp"
                 android:drawablePadding="10dp"
                 android:inputType="textEmailAddress"/>
@@ -170,7 +173,6 @@
             android:textColor="@color/teal_700"
             android:textSize="18sp" />
     </LinearLayout>
-
 
 
 

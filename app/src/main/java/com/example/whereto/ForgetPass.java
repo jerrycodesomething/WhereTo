@@ -20,7 +20,7 @@ public class ForgetPass extends AppCompatActivity {
     TextInputLayout userforgotEmail;
     Button sendpasswordRecovery;
 
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth fAuth;
 
 
     @Override
@@ -31,12 +31,12 @@ public class ForgetPass extends AppCompatActivity {
         userforgotEmail = findViewById(R.id.forgotPassEmail);
         sendpasswordRecovery = findViewById(R.id.sendPassRecovery);
 
-        firebaseAuth =FirebaseAuth.getInstance();
+        fAuth =FirebaseAuth.getInstance();
 
         sendpasswordRecovery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.sendPasswordResetEmail(userforgotEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                fAuth.sendPasswordResetEmail(userforgotEmail.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) { //check the status
                         if(task.isSuccessful()){
