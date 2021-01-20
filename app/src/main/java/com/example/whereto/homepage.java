@@ -119,15 +119,6 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//        if(drawerLayout.isDrawerVisible(GravityCompat.START)){
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }else
-//            super.onBackPressed();
-//    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){

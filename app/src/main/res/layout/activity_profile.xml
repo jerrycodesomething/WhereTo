@@ -73,34 +73,37 @@
             android:orientation="horizontal">
 
             <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profile_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.tabs.TabItem
+                    android:id="@+id/visited_tab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Visited" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:id="@+id/favourites_tab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Favourites"/>
             </com.google.android.material.tabs.TabLayout>
         </LinearLayout>
 
-        <GridView
-            android:layout_marginTop="5dp"
+        <FrameLayout
+            android:id="@+id/fragment_output"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/gridview"
-            android:columnWidth="90dp"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="5dp"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:gravity="center">
-        </GridView>
+            android:layout_height="match_parent">
+        </FrameLayout>
+
 
     </LinearLayout>
+
+
+
+
+
+
 
 </RelativeLayout>
