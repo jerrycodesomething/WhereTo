@@ -89,10 +89,6 @@
                     android:layout_height="wrap_content"
                     android:text="Favourites"/>
             </com.google.android.material.tabs.TabLayout>
-
-
-
-
         </LinearLayout>
 
         <FrameLayout

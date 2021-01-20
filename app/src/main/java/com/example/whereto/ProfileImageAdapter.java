@@ -12,7 +12,7 @@ import com.example.whereto.R;
 
 public class ProfileImageAdapter extends BaseAdapter {
 
-    private Context mContext;
+    Context mContext;
 
     public int[] imageArray = {R.drawable.img1,R.drawable.img2,R.drawable.img3,
             R.drawable.img4,R.drawable.img5,R.drawable.img6,
