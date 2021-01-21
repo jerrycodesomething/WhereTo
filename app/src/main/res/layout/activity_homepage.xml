@@ -35,9 +35,47 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
+            app:backgroundTint="@color/teal_200"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/social_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            app:backgroundTint="#FF99FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/categories_button"
+            app:srcCompat="@drawable/ic_social" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/categories_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            app:backgroundTint="#A2E2FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_baseline_categories" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/check_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            app:backgroundTint="#A6FF8C"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/categories_button"
+            app:srcCompat="@drawable/ic_check_in" />
 
 
         <FrameLayout
