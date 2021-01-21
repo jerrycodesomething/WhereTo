@@ -35,7 +35,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
-            app:backgroundTint="@color/teal_200"
+            app:backgroundTint="#D1D1D1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_menu" />
@@ -47,7 +47,7 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="32dp"
             android:clickable="true"
-            app:backgroundTint="#FF99FA"
+            app:backgroundTint="#FF6CF8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/categories_button"
             app:srcCompat="@drawable/ic_social" />
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:clickable="true"
-            app:backgroundTint="#A2E2FF"
+            app:backgroundTint="#00AFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -72,7 +72,7 @@
             android:layout_marginStart="25dp"
             android:layout_marginBottom="32dp"
             android:clickable="true"
-            app:backgroundTint="#A6FF8C"
+            app:backgroundTint="#20D500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/categories_button"
             app:srcCompat="@drawable/ic_check_in" />

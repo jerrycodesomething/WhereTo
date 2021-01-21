@@ -26,7 +26,7 @@ import androidx.fragment.app.*;
 
 public class FragmentMap extends Fragment {
 
-    //class variables
+    //Class variables
     private GoogleMap cMap;
     private Marker currentUserLocationMarker;
     private static final int Request_User_Location_Code = 99;

@@ -2,20 +2,26 @@ package com.example.whereto;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Homepage components
-    FloatingActionButton menuIcon;
+    FloatingActionButton menuIcon, categories_btn;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
@@ -31,16 +37,31 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         //button finders
         menuIcon = findViewById(R.id.sidebarMenu);
+        categories_btn = (FloatingActionButton) findViewById(R.id.categories_button);
 
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
 
         navigationDrawer();
+        categoriesMenu();
+    }
+
+    //Categories menu method to show the overlay card for categories
+    private void categoriesMenu(){
+        categories_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(homepage.this, R.style.overlayBottomDrawerTheme);
+                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.overlay_bottom_drawer, (LinearLayout) findViewById(R.id.overlay_bottom_drawer_container));
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
     }
 
 
-    //Navigation Drawer Method
+    //Navigation drawer method
     private void navigationDrawer() {
         //Navigation drawer
         navigationView.bringToFront();  //want to interact with the navigation drawer

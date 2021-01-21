@@ -52,7 +52,10 @@ dependencies {
 
     //circular image view for profile picture
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
-    //tablayout
+
     //noinspection GradleCompatible
     implementation 'com.android.support:design:26.1.0'
+
+    //Rounded image view for bottom overlay drawer
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
