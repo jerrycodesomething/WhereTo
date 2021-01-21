@@ -19,6 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/wheretologo"/>
+        <Button
+            android:onClick="getCurrentLocation"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Location"/>
 
         <TextView
             android:layout_width="wrap_content"

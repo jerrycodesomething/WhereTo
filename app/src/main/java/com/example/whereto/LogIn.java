@@ -19,7 +19,7 @@ public class LogIn extends AppCompatActivity {
 
     Button buttonLogin;
     TextInputLayout userEmail, userPass;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,10 @@ public class LogIn extends AppCompatActivity {
         userEmail = findViewById(R.id.userEmailLogIn);
         userPass = findViewById(R.id.userPassLogIn);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        buttonLogin.setOnClickListener(v -> firebaseAuth.signInWithEmailAndPassword(userEmail.getEditText().getText().toString(), userPass.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        fAuth = FirebaseAuth.getInstance();
+
+        buttonLogin.setOnClickListener(v -> fAuth.signInWithEmailAndPassword(userEmail.getEditText().getText().toString(), userPass.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
@@ -45,6 +46,7 @@ public class LogIn extends AppCompatActivity {
             }
         }));
     }
+
 
     public void goToWelcomeScreen(View view){
         Intent intent = new Intent(this,WelcomeScreen.class);

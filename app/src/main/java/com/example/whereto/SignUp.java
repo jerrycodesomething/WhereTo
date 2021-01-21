@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,12 +14,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
@@ -29,10 +37,12 @@ public class SignUp extends AppCompatActivity {
     //Declare the variables for validation
     TextInputLayout regfullName, regusername, regpassword, regemail,regphoneNo;
 
-
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    public static final String TAG = "TAG";
+    FirebaseAuth fAuth;
+//    FirebaseDatabase rootNode;
+//    DatabaseReference reference;
+    FirebaseFirestore fStore;
+    String userID;
 
 
     @Override
@@ -54,15 +64,16 @@ public class SignUp extends AppCompatActivity {
         regemail = findViewById(R.id.signUp_email);
         regphoneNo = findViewById(R.id.signUp_phoneNo);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
 
         regnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                rootNode = FirebaseDatabase.getInstance(); //will be calling to the top node
-                reference=rootNode.getReference("users");
+//                rootNode = FirebaseDatabase.getInstance(); //will be calling to the top node
+//                reference=rootNode.getReference("users");
 
                 //get all the values
                 String fullname = regfullName.getEditText().getText().toString();
@@ -71,20 +82,37 @@ public class SignUp extends AppCompatActivity {
                 String password = regpassword.getEditText().getText().toString();
                 String phoneNo = regphoneNo.getEditText().getText().toString();
 
-                //call the helper class and get all the values
-                UserHelperClass helperClass = new UserHelperClass(fullname, username, email, password, phoneNo);
+//                //call the helper class and get all the values
+//                UserHelperClass helperClass = new UserHelperClass(fullname, username, email, password, phoneNo);
+//
+//                //set the value by user's phone number
+//                //assign this reference
+//                reference.child(phoneNo).setValue(helperClass);
 
-                //set the value by user's phone number
-                //assign this reference
-                reference.child(phoneNo).setValue(helperClass);
 
-                firebaseAuth.createUserWithEmailAndPassword(regemail.getEditText().getText().toString(),regpassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                fAuth.createUserWithEmailAndPassword(regemail.getEditText().getText().toString(),regpassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(SignUp.this, "Registered Succesfully!", Toast.LENGTH_SHORT).show();
+                            userID = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("fName",fullname);
+                            user.put("userName",username);
+                            user.put("eMail",email);
+                            user.put("passWord",password);
+                            user.put("phone",phoneNo);
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: User Profile is created for" + userID);
+                                }
+                            });
+                            startActivity(new Intent(getApplicationContext(),homepage.class));
                         }else{
-                            Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this,"Error"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -95,13 +123,9 @@ public class SignUp extends AppCompatActivity {
 //                }
 
 
-                Intent intent = new Intent(getApplicationContext(), LogIn.class);
-                startActivity(intent);
 
-//                intent.putExtra("fullname",validateFullName());
-//                intent.putExtra("username",validateUsername());
-//                intent.putExtra("username",validateEmail());
-//                intent.putExtra("password",validatePass());
+
+
 
 
 //                Add Transition
@@ -120,51 +144,8 @@ public class SignUp extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
-
-
-
-
-
     }
 
-//    public void callNextSignUp2(View view) {
-//
-//        //perform the validations
-//
-////        if(!validateFullName() | !validateUsername() |!validateEmail() | !validatePass()){
-////            return;
-////        }
-//
-//
-//
-//
-//
-////        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
-////        DatabaseReference reference = rootNode.getReference("Users");//point all the tables in the database
-////
-////        reference.setValue("First record!");
-//
-//
-////        Intent intent = new Intent(getApplicationContext(), SignUp2.class);
-
-
-    ////        //Add Transition
-////        Pair[] pairs = new Pair[4];
-////
-////        pairs[0] = new Pair<View, String>(backBtn, "transition_back_to_welcome_screen");
-////        pairs[1] = new Pair<View, String>(next, "transition_next_button");
-////        pairs[2] = new Pair<View, String>(login, "transition_login_button");
-////        pairs[3] = new Pair<View, String>(titleText, "transition_title_text");
-////
-////        //call the activity options
-////        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) { //use the API level or higher
-////            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp.this, pairs);
-////            startActivity(intent, options.toBundle()); //start the activity by intent and pass the animation (options.toBundle)
-////        }
-////        startActivity(intent);
-//    }
-//
-//
     //return true or false
     private boolean validateFullName() {
         //create string to get user's value of fullname
@@ -289,9 +270,10 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-
     public void gobacktoSignIn(View view) {
         Intent intent = new Intent(getApplicationContext(),SUPorSUPWG.class);
         startActivity(intent);
     }
+
+
 }

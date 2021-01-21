@@ -4,7 +4,7 @@ public class UserHelperClass {
     //add variables that want to be added into the firebase
     String fullname, username, email, password, phoneNo;
 
-    public UserHelperClass() { }
+//    public UserHelperClass() { }
 
     public UserHelperClass(String fullname, String username, String email, String password, String phoneNo) {
         this.fullname = fullname;
