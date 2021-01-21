@@ -17,28 +17,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereTo">
 
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".MapsActivity">
-            android:label="@string/title_activity_maps">
-        </activity>
-        <activity android:name=".homepage" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
         <activity android:name=".AccountStatus" />
         <activity android:name=".FaqAbout" />
-
+        <activity android:name=".Profile" />
         <activity android:name=".Help" />
         <activity android:name=".sharing_privacy_setting" />
         <activity android:name=".CheckinActivity" />
@@ -48,17 +42,13 @@
         <activity android:name=".LogIn" />
         <activity android:name=".ForgetPass" />
         <activity android:name=".WelcomeScreen" />
-        <activity android:name=".Profile">
+        <activity android:name=".homepage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

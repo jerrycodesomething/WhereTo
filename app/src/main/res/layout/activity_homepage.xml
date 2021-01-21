@@ -8,9 +8,6 @@
     tools:context=".homepage"
     android:id="@+id/drawer_layout">
 
-
-
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
@@ -63,6 +60,12 @@
 
         </RelativeLayout>
 
+        <FrameLayout
+            android:id="@+id/map_output"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
 
     </LinearLayout>

@@ -11,12 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-//    TextView name , mail;
-//    Button logout;
 
     LinearLayout contentView;
     static final float END_SCALE = 0.7f;
@@ -32,10 +31,16 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+        // Loads the map fragment
+        Fragment fragment = null;
+        fragment = new FragmentMap();
+        getSupportFragmentManager().beginTransaction().replace(R.id.map_output, fragment).commit();
+
         iv_checkin = findViewById(R.id.iv_checkin);
         backtoLoginPage = findViewById(R.id.backtoLogin);
         contentView = findViewById(R.id.content);
         menuIcon = findViewById(R.id.sidebarMenu);
+
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -57,25 +62,9 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         navigationDrawer();
 
-//        logout =findViewById(R.id.logout);
-//        name =findViewById(R.id.name);
-//        mail =findViewById(R.id.mail);
-//
-//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-//        if(signInAccount != null){
-//            name.setText(signInAccount.getDisplayName());
-//            mail.setText(signInAccount.getEmail());
-//        }
-
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent = new Intent(getApplicationContext(),WelcomeScreen.class);
-//                startActivity(intent);
-//            }
-//        });
     }
+
+
     //Navigation Drawer Function
     private void navigationDrawer() {
         //Navigation drawer
@@ -97,6 +86,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         animationForNavigationDrawer();
     }
 
+
     private void animationForNavigationDrawer() {
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
@@ -113,11 +103,10 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 final float xOffsetDiff = contentView.getWidth()*diffScaledOffset/2;
                 final float xTranslation = xOffset - xOffsetDiff;
                 contentView.setTranslationX(xTranslation);
-
             }
-
         });
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -139,7 +128,6 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent4);
                 break;
         }
-
         drawerLayout.closeDrawer(GravityCompat.START);
         return true; //there is some item will be selected
     }
