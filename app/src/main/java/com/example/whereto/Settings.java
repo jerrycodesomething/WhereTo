@@ -49,19 +49,18 @@ import java.util.Map;
 
 public class Settings extends AppCompatActivity {
 
-
+    //View variables
     TextView disableORdeleteAcc;
     TextView username, fullname, email, password;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
-    String userId;
     ImageView profileImage;
     Button update;
+
     //storage reference
     StorageReference storageReference;
     FirebaseUser user;
-
-
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
 
     public static final String TAG = "TAG";
 
@@ -72,8 +71,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
-
+        //initialization of widgets
         disableORdeleteAcc = findViewById(R.id.settings_DisableorDeleteAccount);
         username = findViewById(R.id.settings_username);
         fullname = findViewById(R.id.settings_fullname);
@@ -82,7 +80,7 @@ public class Settings extends AppCompatActivity {
         password = findViewById(R.id.settings_password);
         update = findViewById(R.id.settings_buttonUpdate);
 
-
+        //initialization of firebase
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();

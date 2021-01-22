@@ -74,6 +74,7 @@ public class FragmentMap extends Fragment implements ConnectionCallbacks, OnConn
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
 
         categoriesMenu();
+        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         return view;
     }
 
@@ -112,7 +113,7 @@ public class FragmentMap extends Fragment implements ConnectionCallbacks, OnConn
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
-
+                        Toast.makeText(getActivity(), "hello", Toast.LENGTH_SHORT).show();
                         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                             @Override
                             public void onMapReady(GoogleMap googleMap) {
@@ -125,6 +126,8 @@ public class FragmentMap extends Fragment implements ConnectionCallbacks, OnConn
                                 }
                             }
                         });
+                    }else{
+                        Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.whereto">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,11 +16,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WhereTo">
+        android:theme="@style/Theme.WhereTo"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ImagesActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -29,8 +30,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".PrivacyPopupWindow"/>
-        <activity android:name=".homepage" />
+        <activity android:name=".PrivacyPopupWindow" />
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
@@ -42,9 +42,9 @@
         <activity android:name=".CheckinActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".SUPorSUPWG" />
+        <activity android:name=".ForgetPass" />
         <activity android:name=".SignUp" />
         <activity android:name=".LogIn" />
-        <activity android:name=".ForgetPass" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -38,8 +38,8 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(LogIn.this, "Welcome back "+userEmail, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LogIn.this,homepage.class));
+                    Toast.makeText(LogIn.this, "Welcome back "+userEmail, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(LogIn.this, "Sorry, your credential is not in our database :(", Toast.LENGTH_SHORT).show();
                 }

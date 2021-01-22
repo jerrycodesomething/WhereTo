@@ -32,14 +32,14 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_homepage);
         //Check in
 
-        checkInIcon = findViewById(R.id.check_in_button);
-        checkInIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(homepage.this,CheckinActivity.class);
-                startActivity(intent);
-            }
-        });
+//        checkInIcon = findViewById(R.id.check_in_button);
+//        checkInIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(homepage.this,CheckinActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         // Loads the map fragment
         Fragment fragment = null;
