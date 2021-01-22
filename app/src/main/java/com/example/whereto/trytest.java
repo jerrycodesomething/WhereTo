@@ -29,8 +29,6 @@ import com.google.firebase.storage.UploadTask;
 
 public class trytest extends AppCompatActivity {
 
-
-
     private Button uploadBtn, showAllbtn;
     private ImageView imageView;
     private ProgressBar progressBar;

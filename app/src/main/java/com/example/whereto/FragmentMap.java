@@ -61,10 +61,14 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
         //Button finder
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
         checkin_btn = view.findViewById(R.id.check_in_button);
+
+
+
+        //On Click listeners
         checkin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getActivity(),CheckInActivity.class);
+               Intent intent = new Intent(getActivity(), CheckInActivity.class);
                startActivity(intent);
             }
         });
