@@ -59,6 +59,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
         //Button finder
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
 
+
         categoriesMenu();
         return  view;
     }
