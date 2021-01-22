@@ -24,11 +24,22 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
     FloatingActionButton menuIcon;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    FloatingActionButton checkInIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        //Check in
+
+        checkInIcon = findViewById(R.id.check_in_button);
+        checkInIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(homepage.this,CheckinActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Loads the map fragment
         Fragment fragment = null;
