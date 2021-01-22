@@ -32,17 +32,38 @@
         android:layout_width="300dp"
         android:layout_height="300dp"/>
 
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
 
+
+        <Button
+            android:id="@+id/bt_share"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Share to"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/bt_turnon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center"
             android:background="@drawable/ic_camera"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:id="@+id/bt_post"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="post"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"/>
 
 
+
+    </LinearLayout>>
 
 
 

@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.GridView;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -24,7 +21,7 @@ public class Profile extends AppCompatActivity {
         TabItem visited_tab= (TabItem) findViewById(R.id.visited_tab);
         TabItem favourites_tab= (TabItem) findViewById(R.id.favourites_tab);
         Fragment fragment = null;
-        fragment =new VisitedFragment();
+        fragment =new FragmentVisited();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_output, fragment);
@@ -36,10 +33,10 @@ public class Profile extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (tab.getPosition()){
                     case 0:
-                        fragment = new VisitedFragment();
+                        fragment = new FragmentVisited();
                         break;
                     case 1:
-                        fragment = new FavouritesFragment();
+                        fragment = new FragmentFavourites();
                         break;
                     default:
                 }
