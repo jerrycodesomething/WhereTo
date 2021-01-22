@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -39,6 +41,7 @@ public class trytest extends AppCompatActivity {
     private ImageView imageView;
     private ProgressBar progressBar;
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
+    DatabaseReference root;
     private Uri imageUri;
     FirebaseFirestore fStore;
     String userId;
@@ -46,12 +49,11 @@ public class trytest extends AppCompatActivity {
     FirebaseUser user;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trytest);
+
 
         uploadBtn = findViewById(R.id.upload);
         showAllbtn = findViewById(R.id.showall);
@@ -83,49 +85,17 @@ public class trytest extends AppCompatActivity {
                 }
             }
         });
-//        fAuth = FirebaseAuth.getInstance();
-//        fStore = FirebaseFirestore.getInstance();
-//        userId = fAuth.getCurrentUser().getUid();
-//        storageReference = FirebaseStorage.getInstance().getReference();
-//
-//        buttonChoose = findViewById(R.id.button_choose_image);
-//        buttonUpload = findViewById(R.id.button_upload);
-//        textViewshowUpload = findViewById(R.id.edit_text_file_name);
-//        imageView =findViewById(R.id.image_view);
-//        progressBar = findViewById(R.id.progress_bar);
 
-//        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid()+"/profile.jpg");
-//        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(imageView);
-//            }
-//        });
-//
-//        buttonChoose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(openGalleryIntent,1000);
-//
-//            }
-//        });
-//
-//        buttonUpload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
-//        textViewshowUpload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        showAllbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ImagesActivity.class));
+            }
+        });
+
     }
 
+    //method to upload photo to Firebase
     private void uploadtoFirebase1(Uri uri) {
         StorageReference fileRef = reference.child("usersVisited/" + fAuth.getCurrentUser().getUid() + "/"+ (System.currentTimeMillis() + "." + getFileExtension(uri)));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -134,8 +104,10 @@ public class trytest extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(trytest.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        root = FirebaseDatabase.getInstance().getReference("UsersVisited/" + userId);
+                        String uploadId = root.push().getKey();
+                        Upload upload = new Upload(uri.toString());
+                        root.child(uploadId).setValue(upload);
                     }
                 });
             }
@@ -153,62 +125,23 @@ public class trytest extends AppCompatActivity {
         });
     }
 
+    //will return selected image types of extension
     private String getFileExtension(Uri mUri){
-        //will return selected image types of extension
         ContentResolver cr = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(mUri));
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode ==2 && resultCode == RESULT_OK && data != null){
-
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
 
         }
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == 1000){
-//            if(resultCode == Activity.RESULT_OK){
-//                //getting the uri of the image
-//                Uri imageUri = data.getData();
-//                //profileImage.setImageURI(imageUri);
-//
-//                uploadImageToFirebase(imageUri);
-//            }
-//        }
-//    }
 
-//    private void uploadImageToFirebase(Uri imageUri) {
-//        //upload image to firebase storage
-//        //new storage reference variable
-//        StorageReference fileRef = storageReference.child("usersvisited/" + fAuth.getCurrentUser().getUid()+"/profile.jpg");
-//        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        Picasso.get().load(uri).into(imageView);
-//
-//
-//                    }
-//                });
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(trytest.this, "Failed", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
 
 }
