@@ -8,6 +8,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -35,7 +36,7 @@
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
         <activity android:name=".AccountStatus" />
         <activity android:name=".FaqAbout" />
-        <activity android:name=".Profile"/>
+        <activity android:name=".Profile" />
         <activity android:name=".Help" />
         <activity android:name=".sharing_privacy_setting" />
         <activity android:name=".CheckinActivity" />
@@ -52,10 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
