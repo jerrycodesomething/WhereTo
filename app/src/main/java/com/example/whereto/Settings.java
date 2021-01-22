@@ -89,7 +89,6 @@ public class Settings extends AppCompatActivity {
                 username.setText(documentSnapshot.getString("userName"));
                 fullname.setText(documentSnapshot.getString("fName"));
                 email.setText(documentSnapshot.getString("eMail"));
-
             }
         });
 

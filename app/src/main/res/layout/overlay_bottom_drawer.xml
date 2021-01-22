@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/overlay_bottom_drawer_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/overlay_bottom_drawer_background"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/friends_cat_text"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:text="Friends"
+        android:textSize="20dp"
+        android:textColor="@color/green_text"
+        android:gravity="center"
+        android:textAlignment="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/food_cat_text"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:text="Food"
+        android:textSize="20dp"
+        android:textColor="@color/green_text"
+        android:gravity="center"
+        android:textAlignment="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/mall_cat_text"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:text="Malls"
+        android:textSize="20dp"
+        android:textColor="@color/green_text"
+        android:gravity="center"
+        android:textAlignment="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/supermarket_cat_text"
+        android:layout_width="match_parent"
+        android:layout_height="97dp"
+        android:text="Supermarkets"
+        android:textSize="20dp"
+        android:textColor="@color/green_text"
+        android:gravity="center"
+        android:textAlignment="center"/>
+
+</LinearLayout>
