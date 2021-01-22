@@ -9,6 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +30,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".PrivacyPopupWindow"/>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".homepage" />
+        <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
         <activity android:name=".AccountStatus" />
@@ -44,7 +46,7 @@
         <activity android:name=".LogIn" />
         <activity android:name=".ForgetPass" />
         <activity android:name=".WelcomeScreen" />
-        <activity android:name=".homepage">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
