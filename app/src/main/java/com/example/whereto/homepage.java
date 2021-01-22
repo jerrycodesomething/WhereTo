@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 public class homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     //Homepage components
-    FloatingActionButton menuIcon, categories_btn;
+    FloatingActionButton menuIcon;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
@@ -37,29 +37,13 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
 
         //button finders
         menuIcon = findViewById(R.id.sidebarMenu);
-        categories_btn = (FloatingActionButton) findViewById(R.id.categories_button);
 
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
 
         navigationDrawer();
-        categoriesMenu();
     }
-
-    //Categories menu method to show the overlay card for categories
-    private void categoriesMenu(){
-        categories_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(homepage.this, R.style.overlayBottomDrawerTheme);
-                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.overlay_bottom_drawer, (LinearLayout) findViewById(R.id.overlay_bottom_drawer_container));
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
-            }
-        });
-    }
-
 
     //Navigation drawer method
     private void navigationDrawer() {
