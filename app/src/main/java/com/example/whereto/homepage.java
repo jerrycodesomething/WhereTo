@@ -138,6 +138,10 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 Intent intent4 = new Intent(homepage.this,Help.class);
                 startActivity(intent4);
                 break;
+            case R.id.nav_logout:
+                Intent intent5 = new Intent(homepage.this,trytest.class);
+                startActivity(intent5);
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
