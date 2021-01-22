@@ -1,6 +1,7 @@
 package com.example.whereto;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -43,6 +44,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
     private double latitude, longitude;
     private int ProximityRadius = 10000;
     FloatingActionButton categories_btn;
+    private FloatingActionButton checkin_btn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -58,7 +60,14 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
 
         //Button finder
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
-
+        checkin_btn = view.findViewById(R.id.check_in_button);
+        checkin_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(getActivity(),CheckInActivity.class);
+               startActivity(intent);
+            }
+        });
 
         categoriesMenu();
         return  view;

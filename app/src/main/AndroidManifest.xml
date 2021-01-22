@@ -8,7 +8,10 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- camera -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereTo"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ImagesActivity"></activity>
+        <activity android:name=".CheckInActivity"></activity>
+        <activity android:name=".ImagesActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -30,6 +34,16 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <provider xmlns:tools="http://schemas.android.com/tools"
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.whereto"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".PrivacyPopupWindow" />
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
@@ -39,12 +53,11 @@
         <activity android:name=".Profile" />
         <activity android:name=".Help" />
         <activity android:name=".sharing_privacy_setting" />
-        <activity android:name=".CheckinActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".SUPorSUPWG" />
         <activity android:name=".ForgetPass" />
         <activity android:name=".SignUp" />
-        <activity android:name=".homepage"/>
+        <activity android:name=".homepage" />
         <activity android:name=".LogIn" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".MainActivity">
