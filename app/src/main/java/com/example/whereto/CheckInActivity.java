@@ -2,10 +2,12 @@ package com.example.whereto;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -26,11 +29,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CheckInActivity extends AppCompatActivity {
+
+    //database
+    private StorageReference reference = FirebaseStorage.getInstance().getReference();
+    DatabaseReference root;
+
+    FirebaseFirestore fStore;
+    String userId;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
 
     private Button bt_post;
 
@@ -54,6 +78,12 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
+
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+        user = fAuth.getCurrentUser();
 
         //post dialog:
         bt_post = findViewById(R.id.bt_post);
@@ -79,13 +109,16 @@ public class CheckInActivity extends AppCompatActivity {
                         if (bt_privacy.getText() == "Friend"){
                             Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
 
+
                             //connect to db
+                            Bitmap friendOnly = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
 
                         }
                         else {
                             //share to public:
                                 Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
                                 //connect to db
+                            Bitmap publicCanSee = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
 
 
                         }
@@ -277,5 +310,42 @@ public class CheckInActivity extends AppCompatActivity {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, ImageUri);
         startActivityForResult(intent, TAKE_PHOTO);
+    }
+
+    //will return selected image types of extension
+    private String getFileExtension(Uri mUri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(mUri));
+    }
+
+    //method to upload photo to Firebase
+    private void uploadtoFirebase1(Uri uri) {
+        StorageReference fileRef = reference.child("usersVisited/" + fAuth.getCurrentUser().getUid() + "/"+ (System.currentTimeMillis() + "." + getFileExtension(uri)));
+        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        root = FirebaseDatabase.getInstance().getReference("UsersVisited/" + userId);
+                        String uploadId = root.push().getKey();
+                        Upload upload = new Upload(uri.toString());
+                        root.child(uploadId).setValue(upload);
+                    }
+                });
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                //progressBar.setVisibility(View.VISIBLE);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "Uploading Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
