@@ -55,6 +55,7 @@ public class CheckInActivity extends AppCompatActivity {
     String userId;
     FirebaseAuth fAuth;
     FirebaseUser user;
+     Uri ImageUri;
 
     private Button bt_post;
 
@@ -107,11 +108,17 @@ public class CheckInActivity extends AppCompatActivity {
 
                         //share to friend:
                         if (bt_privacy.getText() == "Friend"){
-                            Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
 
 
                             //connect to db
                             Bitmap friendOnly = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
+                            uploadtoFirebase1(ImageUri);
+                            Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
+
+
+
+
 
                         }
                         else {
@@ -185,7 +192,6 @@ public class CheckInActivity extends AppCompatActivity {
     }
 
 
-    private Uri ImageUri;
     public static final int TAKE_PHOTO = 101;
     public static final int TAKE_CAMARA = 100;
 
