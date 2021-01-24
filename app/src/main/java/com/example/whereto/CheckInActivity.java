@@ -73,18 +73,20 @@ public class CheckInActivity extends AppCompatActivity {
 
 
                         //set Post Click
-                        //share to public:
-                        if (bt_privacy.getText().equals("Public")){
-                            Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
-                            //connect to db
 
-                        }
 
                         //share to friend:
                         if (bt_privacy.getText() == "Friend"){
                             Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
 
                             //connect to db
+
+                        }
+                        else {
+                            //share to public:
+                                Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
+                                //connect to db
+
 
                         }
                     }
