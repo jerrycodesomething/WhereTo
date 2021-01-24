@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:text="Cancel"
             android:textSize="20sp"
-            android:textColor="#00BB00"
+            android:textColor="#669999"
             android:gravity="center"/>
 
         <View
@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:text="Confirm"
             android:textSize="20sp"
-            android:textColor="#00BB00"
+            android:textColor="#669999"
             android:gravity="center"/>
 
     </LinearLayout>
