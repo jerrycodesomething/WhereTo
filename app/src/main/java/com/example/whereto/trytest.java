@@ -1,3 +1,4 @@
+/*
 package com.example.whereto;
 
 import android.content.ContentResolver;
@@ -136,4 +137,4 @@ public class trytest extends AppCompatActivity {
 
 
 
-}
+}*/

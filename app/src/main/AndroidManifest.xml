@@ -43,8 +43,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <activity android:name=".PrivacyPopupWindow" />
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
@@ -52,7 +50,6 @@
         <activity android:name=".FaqAbout" />
         <activity android:name=".Profile" />
         <activity android:name=".Help" />
-        <activity android:name=".sharing_privacy_setting" />
         <activity android:name=".Settings" />
         <activity android:name=".SUPorSUPWG" />
         <activity android:name=".ForgetPass" />
