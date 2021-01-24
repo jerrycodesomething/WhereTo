@@ -55,7 +55,7 @@ public class Settings extends AppCompatActivity {
     ImageView profileImage;
     Button update;
 
-    //storage reference
+    //firebase
     StorageReference storageReference;
     FirebaseUser user;
     FirebaseAuth fAuth;
@@ -80,7 +80,7 @@ public class Settings extends AppCompatActivity {
         password = findViewById(R.id.settings_password);
         update = findViewById(R.id.settings_buttonUpdate);
 
-        //initialization of firebase
+        //firebase
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -180,9 +180,8 @@ public class Settings extends AppCompatActivity {
             }
         }
     }
-
+    //upload image to firebase storage
     private void uploadImageToFirebase(Uri imageUri) {
-        //upload image to firebase storage
         //new storage reference variable
         final StorageReference fileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid()+"/profile.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
