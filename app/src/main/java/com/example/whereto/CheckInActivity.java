@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ import java.io.IOException;
 
 public class CheckInActivity extends AppCompatActivity {
 
+    private Button bt_post;
+
     private ImageView camereIv;
     private Button bt_upload;
 
@@ -42,7 +45,7 @@ public class CheckInActivity extends AppCompatActivity {
     private PopupWindow pw_privacy;
 
     private String TAG = "tag";
-
+    //need the permission to read the storage and camera
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};
@@ -52,6 +55,46 @@ public class CheckInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
 
+        //post dialog:
+        bt_post = findViewById(R.id.bt_post);
+        bt_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postDialog pd = new postDialog(CheckInActivity.this);
+                pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
+                        .setCancel("Cancel", new postDialog.IOnCancelListener() {
+                            @Override
+                            public void onCancel(postDialog dialog) {
+
+                            }
+                        }).setConfirm("Confirm", new postDialog.IOnConfirmListener() {
+                    @Override
+                    public void onConfirm(postDialog dialog) {
+
+
+                        //set Post Click
+
+
+                        //share to friend:
+                        if (bt_privacy.getText() == "Friend"){
+                            Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
+
+                            //connect to db
+
+                        }
+                        else {
+                            //share to public:
+                                Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
+                                //connect to db
+
+
+                        }
+                    }
+                }).show();
+            }
+        });
+
+        //get the permission to read the camera
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
@@ -71,7 +114,6 @@ public class CheckInActivity extends AppCompatActivity {
                 tv_camera = view.findViewById(R.id.tv_camera);
                 tv_photo = view.findViewById(R.id.tv_album);
                 initView();
-
             }
         });
 
@@ -123,13 +165,13 @@ public class CheckInActivity extends AppCompatActivity {
         tv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (verifyPermissions(com.example.whereto.CheckInActivity.this, PERMISSIONS_STORAGE[2]) == 0) {
-                    Log.i(TAG, "提示是否要授权");
-                    ActivityCompat.requestPermissions(com.example.whereto.CheckInActivity.this, PERMISSIONS_STORAGE, 3);
+                //check whether get the permission to use camera
+                if (verifyPermissions(CheckInActivity.this, PERMISSIONS_STORAGE[2]) == 0) {
+                    Log.i(TAG, "need permission");
+                    ActivityCompat.requestPermissions(CheckInActivity.this, PERMISSIONS_STORAGE, 3);
                 } else {
-
-                    toCamera();
+                    //got the permission already
+                    toCamera();  //open camera
                 }
             }
         });
@@ -148,7 +190,7 @@ public class CheckInActivity extends AppCompatActivity {
             case TAKE_PHOTO:
                 if (resultCode == RESULT_OK) {
                     try {
-
+                        //show photo to the image View from camera
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(ImageUri));
                         camereIv.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
@@ -159,7 +201,7 @@ public class CheckInActivity extends AppCompatActivity {
             case TAKE_CAMARA:
                 if (resultCode == RESULT_OK) {
                     try {
-
+                        //show photo to the image View from album
                         Uri uri_photo = data.getData();
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri_photo));
                         camereIv.setImageBitmap(bitmap);
@@ -174,14 +216,20 @@ public class CheckInActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * check the permission
+     *
+     * @param activity
+     * @param permission
+     * @return
+     */
     public int verifyPermissions(Activity activity, java.lang.String permission) {
         int Permission = ActivityCompat.checkSelfPermission(activity, permission);
         if (Permission == PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "get permission");
+            Log.i(TAG, "got the permission already");
             return 1;
         } else {
-            Log.i(TAG, "no permission");
+            Log.i(TAG, "please access the permission");
             return 0;
         }
     }
@@ -189,24 +237,24 @@ public class CheckInActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.i(TAG, "accept");
+            Log.i(TAG, "got the permission");
             toCamera();
         } else {
             Log.i(TAG, "no permission");
         }
     }
 
-    //
+    //use album
     private void toPicture() {
-        Intent intent = new Intent(Intent.ACTION_PICK);  // ACTION_IMAGE_CAPTURE
+        Intent intent = new Intent(Intent.ACTION_PICK);  //跳转到 ACTION_IMAGE_CAPTURE
         intent.setType("image/*");
         startActivityForResult(intent, TAKE_CAMARA);
-        Log.i(TAG, "parse success");
+        Log.i(TAG, "success to use album");
     }
 
-    //
+    //use camera
     private void toCamera() {
-
+        //create the file to store the camera
 //        File outputImage = new File(getExternalCacheDir(), "outputImage.jpg");
         File outputImage = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
         if (outputImage.exists()) {
@@ -218,14 +266,14 @@ public class CheckInActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
+        //get SDK version
         if (Build.VERSION.SDK_INT >= 24) {
-            ImageUri = FileProvider.getUriForFile(com.example.whereto.CheckInActivity.this, "com.mooc.uploadfile4.fileprovider", outputImage);
+            ImageUri = FileProvider.getUriForFile(CheckInActivity.this, "com.mooc.uploadfile4.fileprovider", outputImage);
         } else {
             ImageUri = Uri.fromFile(outputImage);
         }
 
-
+        //launch the camera program
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, ImageUri);
         startActivityForResult(intent, TAKE_PHOTO);
