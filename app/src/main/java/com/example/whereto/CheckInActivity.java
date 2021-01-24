@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,12 +81,14 @@ public class CheckInActivity extends AppCompatActivity {
                             Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
 
                             //connect to db
+                            Bitmap friendOnly = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
 
                         }
                         else {
                             //share to public:
                                 Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
                                 //connect to db
+                            Bitmap publicCanSee = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
 
 
                         }
