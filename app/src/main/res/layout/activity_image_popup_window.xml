@@ -18,9 +18,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_public"
+        android:id="@+id/tv_camera"
         android:textSize="20sp"
-        android:text="public"
+        android:text="camera"
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
@@ -32,11 +32,11 @@
         android:background="#C4C4C4"/>
 
     <TextView
-        android:id="@+id/tv_friend"
+        android:id="@+id/tv_album"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="Friends Only"
+        android:text="select from album"
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
