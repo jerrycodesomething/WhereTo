@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CheckInActivity extends AppCompatActivity {
+
+    private Button bt_post;
 
     private ImageView camereIv;
     private Button bt_upload;
@@ -51,6 +54,44 @@ public class CheckInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
+
+        //post dialog:
+        bt_post = findViewById(R.id.bt_post);
+        bt_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postDialog pd = new postDialog(CheckInActivity.this);
+                pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
+                        .setCancel("Cancel", new postDialog.IOnCancelListener() {
+                            @Override
+                            public void onCancel(postDialog dialog) {
+
+                            }
+                        }).setConfirm("Confirm", new postDialog.IOnConfirmListener() {
+                    @Override
+                    public void onConfirm(postDialog dialog) {
+
+
+                        //set Post Click
+                        //share to public:
+                        if (bt_privacy.getText().equals("Public")){
+                            Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
+                            //connect to db
+
+                        }
+
+                        //share to friend:
+                        if (bt_privacy.getText() == "Friend"){
+                            Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
+
+                            //connect to db
+
+                        }
+                    }
+                }).show();
+            }
+        });
+
         //get the permission to read the camera
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
