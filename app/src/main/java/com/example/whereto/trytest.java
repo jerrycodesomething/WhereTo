@@ -35,8 +35,6 @@ import java.util.ArrayList;
 
 public class trytest extends AppCompatActivity {
 
-
-
     private Button uploadBtn, showAllbtn;
     private ImageView imageView;
     private ProgressBar progressBar;
@@ -47,6 +45,7 @@ public class trytest extends AppCompatActivity {
     String userId;
     FirebaseAuth fAuth;
     FirebaseUser user;
+
 
 
     @Override
