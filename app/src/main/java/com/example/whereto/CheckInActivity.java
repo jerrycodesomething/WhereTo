@@ -59,7 +59,7 @@ public class CheckInActivity extends AppCompatActivity {
 
     private Button bt_post;
 
-    private ImageView camereIv;
+    private ImageView cameraIv;
     private Button bt_upload;
 
     private TextView tv_camera;
@@ -107,11 +107,12 @@ public class CheckInActivity extends AppCompatActivity {
 
 
                         //share to friend:
-                        if (bt_privacy.getText() == "Friend"){
+                        if (bt_privacy.getText().equals("Friend")){
 
 
                             //connect to db
-                            Bitmap friendOnly = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
+                            Bitmap friendOnly = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
+
                             uploadtoFirebase1(ImageUri);
                             Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
@@ -125,11 +126,15 @@ public class CheckInActivity extends AppCompatActivity {
                             //share to public:
                                 Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
                                 //connect to db
-                            Bitmap publicCanSee = ((BitmapDrawable)camereIv.getDrawable()).getBitmap();
+                            Bitmap publicCanSee = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
 
 
                         }
+                        Intent intent = new Intent(CheckInActivity.this,Profile.class);
+                        startActivity(intent);
                     }
+
+
                 }).show();
             }
         });
@@ -198,7 +203,7 @@ public class CheckInActivity extends AppCompatActivity {
     private void initView() {
 
 
-        camereIv = (ImageView) findViewById(R.id.camere_iv);
+        cameraIv = (ImageView) findViewById(R.id.camere_iv);
 
 
         tv_camera.setOnClickListener(new View.OnClickListener() {
@@ -231,7 +236,7 @@ public class CheckInActivity extends AppCompatActivity {
                     try {
                         //show photo to the image View from camera
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(ImageUri));
-                        camereIv.setImageBitmap(bitmap);
+                        cameraIv.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -243,7 +248,7 @@ public class CheckInActivity extends AppCompatActivity {
                         //show photo to the image View from album
                         Uri uri_photo = data.getData();
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri_photo));
-                        camereIv.setImageBitmap(bitmap);
+                        cameraIv.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
