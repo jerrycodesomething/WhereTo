@@ -50,7 +50,7 @@
         <activity android:name=".CheckInActivity" />
         <activity android:name=".AccountStatus" />
         <activity android:name=".FaqAbout" />
-        <activity android:name=".Social_layout_friends" />
+        <activity android:name=".SUPorSUPWG" />
         <activity android:name=".Help" />
         <activity android:name=".Settings" />
         <activity android:name=".SignUp" />
@@ -61,7 +61,7 @@
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation"/>
-        <activity android:name=".SUPorSUPWG">
+        <activity android:name=".Social_layout_friends">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

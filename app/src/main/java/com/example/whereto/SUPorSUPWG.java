@@ -33,7 +33,7 @@ public class SUPorSUPWG extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if(user!=null){
-            Intent intent = new Intent(getApplicationContext(),Settings.class);
+            Intent intent = new Intent(getApplicationContext(),homepage.class);
             startActivity(intent);
         }
     }
@@ -103,7 +103,7 @@ public class SUPorSUPWG extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),Settings.class);
+                            Intent intent = new Intent(getApplicationContext(),homepage.class);
                             startActivity(intent);
 
                         } else {
