@@ -46,7 +46,7 @@
 
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
-        <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
+        <activity android:name=".CheckInActivity" />
         <activity android:name=".AccountStatus" />
         <activity android:name=".FaqAbout" />
         <activity android:name=".Profile" />
@@ -59,7 +59,7 @@
         <activity android:name=".LogIn" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CheckInActivity">
+        <activity android:name=".AccountStatusDisableorDeleteConfirmation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

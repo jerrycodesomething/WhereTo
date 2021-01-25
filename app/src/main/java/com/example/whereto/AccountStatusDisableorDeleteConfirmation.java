@@ -33,9 +33,10 @@ public class AccountStatusDisableorDeleteConfirmation extends AppCompatActivity 
                  if(mText.isEmpty()){
                      Toast.makeText(AccountStatusDisableorDeleteConfirmation.this, "Please enter your confirmation again", Toast.LENGTH_SHORT).show();
                  }
-                 else if(mText == "Disable" || mText =="Delete"){
-                     Intent disordel = new Intent(AccountStatusDisableorDeleteConfirmation.this,WelcomeScreen.class);
-                     startActivity(disordel);
+                 else {
+                     Toast.makeText(AccountStatusDisableorDeleteConfirmation.this, "Your account has been : " + mText, Toast.LENGTH_SHORT).show();
+                     AccountStatusDisableorDeleteConfirmation.this.finish();
+                     System.exit(0);
                  }
             }
         });
