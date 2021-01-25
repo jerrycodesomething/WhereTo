@@ -19,12 +19,8 @@ public class Social_layout_friends extends AppCompatActivity{
         btn = (ImageButton) findViewById (R.id.backProfileButton);
     }
         public void BTP(View view){
-
          Intent intent =new Intent();
          intent.setClass(Social_layout_friends.this,Profile.class);
          startActivity(intent);
         }
-
-
-
 }

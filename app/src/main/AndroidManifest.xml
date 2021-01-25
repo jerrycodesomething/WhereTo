@@ -55,11 +55,11 @@
         <activity android:name=".SUPorSUPWG" />
         <activity android:name=".ForgetPass" />
         <activity android:name=".SignUp" />
-        <activity android:name=".homepage" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".LogIn" />
         <activity android:name=".WelcomeScreen" />
         <activity android:name=".CheckInActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".homepage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

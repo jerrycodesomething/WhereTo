@@ -4,10 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,7 +18,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,15 +38,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.*;
 
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 
-public class FragmentMap extends Fragment implements OnMapReadyCallback {
+public class FragmentMap extends Fragment implements OnMapReadyCallback, LocationListener {
 
     //Class variables
     private GoogleMap mMap;
     private Location lastLocation;
     private Marker currentUserLocationMarker;
-    private static final int Request_User_Location_Code=99;
+    private static final int Request_User_Location_Code = 99;
     private final LatLng defaultLocation = new LatLng(4.2105, 101.9758);
     private double latitude, longitude;
     private int ProximityRadius = 1000;
@@ -49,11 +55,13 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private FloatingActionButton checkin_btn;
     public FusedLocationProviderClient fusedLocationProviderClient;
     public SupportMapFragment supportMapFragment;
+    private LocationCallback locationCallback;
+    private boolean requestingLocationUpdates;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             checkUserLocationPermission();
         }
 
@@ -62,6 +70,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         supportMapFragment.getMapAsync((OnMapReadyCallback) this);
 
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    updateLocationUI();
+                }
+            }
+        };
 
         //Button finder
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
@@ -72,17 +91,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         checkin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(getActivity(), CheckInActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(getActivity(), CheckInActivity.class);
+                startActivity(intent);
             }
         });
 
         categoriesMenu();
-        return  view;
+        return view;
     }
 
     //Categories menu method to show the overlay card for categories
-    private void categoriesMenu(){
+    private void categoriesMenu() {
         categories_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,20 +112,24 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 longitude = lastLocation.getLongitude();
                 String food = "food";
                 String friends = "friends";
-                String mamak = "mamak";
-                String kopitiam = "kopitiam";
-                String restaurants = "restaurants";
-                String cafes = "cafes";
 
 
                 Object transferData[] = new Object[2];
                 GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces();
 
+                bottomSheetView.findViewById(R.id.friends_cat_text).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMap.clear();
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
                 bottomSheetView.findViewById(R.id.food_cat_text).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mMap.clear();
-                        String url = getUrl(latitude,longitude, food);
+                        String url = getUrl(latitude, longitude, food);
                         transferData[0] = mMap;
                         transferData[1] = url;
                         getNearbyPlaces.execute(transferData);
@@ -114,16 +137,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                     }
                 });
 
+
                 bottomSheetDialog.setContentView(bottomSheetView);
                 bottomSheetDialog.show();
             }
         });
     }
 
-    private String getUrl(double latitude, double longitude, String nearbyPlace){
+    private String getUrl(double latitude, double longitude, String nearbyPlace) {
 
         StringBuilder googleURL = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googleURL.append("location=" + latitude + ","+ longitude);
+        googleURL.append("location=" + latitude + "," + longitude);
         googleURL.append("&radius=" + ProximityRadius);
         googleURL.append("&keyword=" + nearbyPlace);
         googleURL.append("&sensor=true");
@@ -142,67 +166,62 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
         getDeviceLocation();
 
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case Request_User_Location_Code:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         mMap.setMyLocationEnabled(true);
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity(), "Permission Denied! Please allow the WhereTo app to access location", Toast.LENGTH_SHORT).show();
                 }
                 return;
         }
     }
 
-    public boolean checkUserLocationPermission (){
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)){
+
+    public boolean checkUserLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+            } else {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
             }
-            else{
-                ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
-            }
-            return  false;
-        }
-        else{
+            return false;
+        } else {
             return false;
         }
     }
 
-    private void updateLocationUI(){
-        if ( mMap == null) {
+    private void updateLocationUI() {
+        if (mMap == null) {
             return;
         }
-        try{
-            if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        try {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            }
-            else{
+            } else {
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 lastLocation = null;
                 checkUserLocationPermission();
             }
-        }
-        catch(SecurityException e){
+        } catch (SecurityException e) {
             Toast.makeText(getActivity(), "Permission Denied! Please allow the WhereTo app to access location", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void getDeviceLocation(){
+    private void getDeviceLocation() {
         try {
-            if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                     @Override
@@ -216,8 +235,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                                         new LatLng(lastLocation.getLatitude(),
                                                 lastLocation.getLongitude()), 15));
                             }
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getActivity(), "Location not found...please enable location services", Toast.LENGTH_SHORT).show();
                             mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(defaultLocation, 8));
@@ -226,9 +244,43 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                     }
                 });
             }
-        }
-        catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Toast.makeText(getActivity(), "Permission Denied! Please allow the WhereTo app to access location", Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //if(requestingLocationUpdates) {
+            createLocationRequest();
+        //}
+    }
+
+    protected void createLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(1100);
+        locationRequest.setFastestInterval(1100);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        requestingLocationUpdates=true;
+        startLocationUpdates(locationRequest);
+    }
+
+    private void startLocationUpdates(LocationRequest locationRequest) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ) {
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+                    locationCallback,
+                    Looper.getMainLooper());
+            requestingLocationUpdates=true;
+        }
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        updateLocationUI();
+    }
+
+
 }
+
