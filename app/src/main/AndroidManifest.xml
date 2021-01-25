@@ -21,7 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereTo"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CheckInActivity"></activity>
         <activity android:name=".ImagesActivity" />
 
         <meta-data
@@ -34,15 +33,17 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <provider xmlns:tools="http://schemas.android.com/tools"
+        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.mooc.uploadfile4.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            xmlns:tools="http://schemas.android.com/tools">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
@@ -54,10 +55,11 @@
         <activity android:name=".SUPorSUPWG" />
         <activity android:name=".ForgetPass" />
         <activity android:name=".SignUp" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".homepage" />
         <activity android:name=".LogIn" />
         <activity android:name=".WelcomeScreen" />
-        <activity android:name=".homepage">
+        <activity android:name=".CheckInActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
