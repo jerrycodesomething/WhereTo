@@ -86,7 +86,8 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent4);
                 break;
             case R.id.nav_logout:
-                Intent intent5 = new Intent(homepage.this,trytest.class);
+                Intent intent5 = new Intent(homepage.this,WelcomeScreen.class);
+                intent5.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent5);
                 break;
         }

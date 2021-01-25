@@ -8,36 +8,61 @@
 
     <Button
         android:id="@+id/signIn_normal"
-        android:layout_width="198dp"
+        android:layout_width="256dp"
         android:layout_height="48dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:background="#21B6A8"
         android:elevation="100dp"
-        android:onClick="goCreateAccount"
         android:fontFamily="@font/montserrat"
+        android:onClick="goCreateAccount"
         android:text="CREATE ACCOUNT"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <Button
         android:id="@+id/signIn_google"
-        android:layout_width="198dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="251dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="40dp"
         android:layout_weight="1"
         android:background="#21B6A8"
-        android:onClick="goSignInWithGoogle"
         android:elevation="100dp"
         android:fontFamily="@font/montserrat"
         android:text="SIGN IN WITH GOOGLE"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="176dp"
+        android:layout_height="146dp"
+        android:layout_marginTop="96dp"
+        android:elevation="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signIn_normal" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/iconfinder_logo_brand_brands_logos_google_2993685"
+        />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat"
+        android:text="OR"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signIn_google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

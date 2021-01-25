@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,8 +40,9 @@ public class SignUp extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
-//    FirebaseDatabase rootNode;
-//    DatabaseReference reference;
+    DatabaseReference mDatabase;
+
+    //DatabaseReference reference;
     FirebaseFirestore fStore;
     String userID;
 
@@ -91,10 +93,13 @@ public class SignUp extends AppCompatActivity {
 
 
 
+
+
                 fAuth.createUserWithEmailAndPassword(regemail.getEditText().getText().toString(),regpassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+
                             Toast.makeText(SignUp.this, "Registered Succesfully!", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
@@ -145,6 +150,8 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
+
+
 
     //return true or false
     private boolean validateFullName() {
