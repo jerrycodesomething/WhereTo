@@ -15,33 +15,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/wheretologo"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="120dp"
-            android:fontFamily="@font/electrolize"
-            android:gravity="center"
-            android:text="The Solution To Your Problems"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="33sp" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/wheretologo" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="200dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:text="Having trouble to find interesting places to explore in Malaysia? Worry not, WhereTo? has all the answers!    "
-            android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:text="The solution to your 'where to?' problems"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +59,7 @@
                 android:onClick="goToSignUp"
                 android:fontFamily="@font/montserrat"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:elevation="30dp"
                 android:layout_weight="1"/>
         </LinearLayout>

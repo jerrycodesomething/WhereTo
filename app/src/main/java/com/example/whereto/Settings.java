@@ -43,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class Settings extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    String test;
 
     public static final String TAG = "TAG";
 
@@ -104,7 +106,8 @@ public class Settings extends AppCompatActivity {
                 fullname.setText(documentSnapshot.getString("fName"));
                 email.setText(documentSnapshot.getString("eMail"));
                 password.setText(documentSnapshot.getString("passWord"));
-
+                test = documentSnapshot.getString("fName");
+                Toast.makeText(Settings.this, "name" + test, Toast.LENGTH_SHORT).show();
             }
         });
 

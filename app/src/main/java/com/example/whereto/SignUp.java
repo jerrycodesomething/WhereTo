@@ -36,7 +36,7 @@ public class SignUp extends AppCompatActivity {
     TextView regtitleText;
 
     //Declare the variables for validation
-    TextInputLayout regfullName, regusername, regpassword, regemail,regphoneNo;
+    TextInputLayout regfullName, regusername, regpassword, regretypepassword, regemail,regphoneNo;
 
     public static final String TAG = "TAG";
     FirebaseAuth fAuth;
@@ -46,7 +46,6 @@ public class SignUp extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +54,13 @@ public class SignUp extends AppCompatActivity {
         //hooks
         regbackBtn = findViewById(R.id.signup_backButton);
         regnext = findViewById(R.id.signup_nextbutton);
-        reglogin = findViewById(R.id.signuploginbutton);
         regtitleText = findViewById(R.id.signup_titlebutton);
 
         //hooks's variable for validation
 
         regfullName = findViewById(R.id.signUp_fullname);
-        regusername = findViewById(R.id.signUp_username);
         regpassword = findViewById(R.id.signUp_password);
+        regretypepassword = findViewById(R.id.signUp_retype_password);
         regemail = findViewById(R.id.signUp_email);
         regphoneNo = findViewById(R.id.signUp_phoneNo);
 
@@ -74,25 +72,16 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                rootNode = FirebaseDatabase.getInstance(); //will be calling to the top node
-//                reference=rootNode.getReference("users");
+                if(!validateFullName() | !validateEmail() | !validatePass() | !validateRetypePass() | !validatePhoneNo()){
+                    return;
+                }
 
                 //get all the values
                 String fullname = regfullName.getEditText().getText().toString();
-                String username= regusername.getEditText().getText().toString();
                 String email = regemail.getEditText().getText().toString();
                 String password = regpassword.getEditText().getText().toString();
+                String retypepassword = regretypepassword.getEditText().getText().toString();
                 String phoneNo = regphoneNo.getEditText().getText().toString();
-
-//                //call the helper class and get all the values
-//                UserHelperClass helperClass = new UserHelperClass(fullname, username, email, password, phoneNo);
-//
-//                //set the value by user's phone number
-//                //assign this reference
-//                reference.child(phoneNo).setValue(helperClass);
-
-
-
 
 
                 fAuth.createUserWithEmailAndPassword(regemail.getEditText().getText().toString(),regpassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -105,7 +94,6 @@ public class SignUp extends AppCompatActivity {
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
                             user.put("fName",fullname);
-                            user.put("userName",username);
                             user.put("eMail",email);
                             user.put("passWord",password);
                             user.put("phone",phoneNo);
@@ -121,16 +109,6 @@ public class SignUp extends AppCompatActivity {
                         }
                     }
                 });
-
-
-//                if(!validateFullName() | !validateUsername() |!validateEmail() | !validatePass()){
-//                    return;
-//                }
-
-
-
-
-
 
 
 //                Add Transition
@@ -174,40 +152,6 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
-    private boolean validateUsername() {
-        //create string to get user's value of fullname
-        //as we are using material design and assign id to layout, need to define getedittext,
-        // trim to ensure there's no spaces that will be stored into the database
-        String val = regusername.getEditText().getText().toString().trim();
-        //check spaces
-        //"\\A\\w{4,20}\\z" means the username should have minimum of 4 & max of 20 char
-        // w/o spaces at the start or in the end
-        //Any capital A to small z
-        String checkspaces = "\\A\\w{1,20}\\z";
-
-        //check the value is empty or not
-        if (val.isEmpty()) {
-            //seterror is build in fx
-            regusername.setError("Field cannot be empty");
-            return false;
-        } else if(val.length()>20){
-            regusername.setError("Username is too long");
-            return false;
-
-            //if value entered is not matched with the define method, error will appear
-        }else if(!val.matches(checkspaces)){
-            regusername.setError("No spaces are allowed");
-            return false;
-        }
-        else {
-            //null will automatically remove the error
-            regusername.setError(null);
-            //the error for the material design is going to take some space, remove the field and spaces
-            regusername.setErrorEnabled(false);
-            return true;
-        }
-    }
-
     private boolean validateEmail() {
         //create string to get user's value of fullname
         //as we are using material design and assign id to layout, need to define getedittext,
@@ -244,6 +188,7 @@ public class SignUp extends AppCompatActivity {
         //as we are using material design and assign id to layout, need to define getedittext,
         // trim to ensure there's no spaces that will be stored into the database
         String val = regpassword.getEditText().getText().toString().trim();
+        String val2 = regretypepassword.getEditText().getText().toString().trim();
         //check spaces
         //"\\A\\w{4,20}\\z" means the username should have minimum of 4 & max of 20 char
         // w/o spaces at the start or in the end
@@ -263,6 +208,10 @@ public class SignUp extends AppCompatActivity {
             regpassword.setError("Field cannot be empty");
             return false;
         }
+        else if(!val.equals(val2)){
+            regretypepassword.setError("Passwords do not match");
+            return false;
+        }
         //if value entered is not matched with the define method, error will appear
         else if(!val.matches(checkPass)){
             regpassword.setError("Password should contain 4 characters");
@@ -273,6 +222,52 @@ public class SignUp extends AppCompatActivity {
             regpassword.setError(null);
             //the error for the material design is going to take some space, remove the field and spaces
             regpassword.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validateRetypePass() {
+
+        String val = regretypepassword.getEditText().getText().toString().trim();
+        String val2 = regpassword.getEditText().getText().toString().trim();
+
+
+        if(!val.equals(val2)){
+            regretypepassword.setError("Passwords do not match");
+            return false;
+        }
+        else {
+            //null will automatically remove the error
+            regretypepassword.setError(null);
+            //the error for the material design is going to take some space, remove the field and spaces
+            regretypepassword.setErrorEnabled(false);
+            return true;
+        }
+
+    }
+
+    private boolean validatePhoneNo() {
+        //create string to get user's value of fullname
+        //as we are using material design and assign id to layout, need to define getedittext,
+        // trim to ensure there's no spaces that will be stored into the database
+        String val = regphoneNo.getEditText().getText().toString().trim();
+
+        if(val.length() < 10 && !val.isEmpty()) {
+            //seterror is build in fx
+            regphoneNo.setError("Please enter a valid phone number");
+            return false;
+        }
+        //check the value is empty or not
+        else if(val.isEmpty()) {
+            //seterror is build in fx
+            regphoneNo.setError("Field cannot be empty");
+            return false;
+        }
+        else {
+            //null will automatically remove the error
+            regphoneNo.setError(null);
+            //the error for the material design is going to take some space, remove the field and spaces
+            regphoneNo.setErrorEnabled(false);
             return true;
         }
     }
