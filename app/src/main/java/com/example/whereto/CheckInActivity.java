@@ -60,6 +60,7 @@ public class CheckInActivity extends AppCompatActivity {
         bt_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 postDialog pd = new postDialog(CheckInActivity.this);
                 pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
                         .setCancel("Cancel", new postDialog.IOnCancelListener() {

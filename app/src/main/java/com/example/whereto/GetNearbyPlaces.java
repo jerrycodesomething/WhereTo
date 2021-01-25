@@ -1,7 +1,11 @@
 package com.example.whereto;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,8 +22,8 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
     private String googlePlaceData, url;
     private GoogleMap mMap;
 
-    private void DisplayNearbyPlaces(List<HashMap<String, String>> NearbyPlacesList){
-        for(int i=0; i<NearbyPlacesList.size(); i++){
+    private void DisplayNearbyPlaces(List<HashMap<String, String>> NearbyPlacesList) {
+        for (int i = 0; i < NearbyPlacesList.size(); i++) {
             MarkerOptions markerOptions = new MarkerOptions();
 
             HashMap<String, String> googleNeabyPlace = NearbyPlacesList.get(i);
@@ -35,8 +39,6 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
             mMap.addMarker(markerOptions);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         }
     }
 
