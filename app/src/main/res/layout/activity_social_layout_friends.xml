@@ -23,16 +23,19 @@
 
 
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/social_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/myfriends_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Friends" />
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/addrequest_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Request" />
@@ -41,31 +44,11 @@
 
     </LinearLayout>
 
-<!--    <EditText-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:paddingLeft="15dp"-->
-<!--        android:paddingRight="10dp"-->
-<!--        android:id="@+id/search_friend"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:hint="Search by username.."-->
-<!--        android:drawableLeft="@drawable/friend"-->
-<!--        android:drawablePadding="5dp"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:maxLines="1"-->
-<!--        android:background="@drawable/bg_search_friend" />-->
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fragment_my_friends_output"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+    </FrameLayout>
 
-    </LinearLayout>
 </LinearLayout>
