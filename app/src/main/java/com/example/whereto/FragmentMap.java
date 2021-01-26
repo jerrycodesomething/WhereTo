@@ -264,16 +264,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
                             lastLocation = task.getResult();
                             if (lastLocation != null) {
 
-                                DocumentReference docRef = fStore.collection("users").document(user.getUid());
+                                DocumentReference docRef = fStore.collection("usersLocation").document(user.getUid());
                                 Map<String,Object> edited = new HashMap<>();
                                 edited.put("latitude", lastLocation.getLatitude());
                                 edited.put("longitude", lastLocation.getLongitude());
-                                docRef.set(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getActivity(), "location added", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                docRef.set(edited);
 
                                 mMap.setMyLocationEnabled(true);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
