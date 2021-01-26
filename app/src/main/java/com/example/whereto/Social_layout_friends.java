@@ -71,6 +71,7 @@ public class Social_layout_friends extends AppCompatActivity{
             protected void onBindViewHolder(@NonNull FriendsViewHolder holder, int position, @NonNull FriendListModel model) {
                 holder.list_email.setText(model.geteMail());
                 holder.list_username.setText(model.getUserName());
+
             }
         };
         mFriendList.setHasFixedSize(true);
