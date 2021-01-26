@@ -270,7 +270,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
                                 edited.put("longitude", lastLocation.getLongitude());
                                 docRef.set(edited);
 
-                                mMap.setMyLocationEnabled(true);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastLocation.getLatitude(),
                                                 lastLocation.getLongitude()), 15));

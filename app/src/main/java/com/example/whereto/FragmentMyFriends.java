@@ -36,7 +36,7 @@ public class FragmentMyFriends extends Fragment {
         fStore = FirebaseFirestore.getInstance();
 
         //query
-        Query query =fStore.collection("users");
+        Query query = fStore.collection("users").orderBy("fName", Query.Direction.ASCENDING);
 
         //recycler options
         FirestoreRecyclerOptions<FriendListModel> options = new FirestoreRecyclerOptions.Builder<FriendListModel>()
@@ -54,10 +54,10 @@ public class FragmentMyFriends extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull FriendsViewHolder holder, int position, @NonNull FriendListModel model) {
                 holder.list_email.setText(model.geteMail());
-                holder.list_username.setText(model.getUserName());
+                holder.list_username.setText(model.getfName());
             }
         };
-        mFriendList.setHasFixedSize(true);
+        mFriendList.hasFixedSize();
         mFriendList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mFriendList.setAdapter(adapter);
 
@@ -70,7 +70,7 @@ public class FragmentMyFriends extends Fragment {
         public FriendsViewHolder(@NonNull View itemView) {
             super(itemView);
             list_email = itemView.findViewById(R.id.listEmail);
-            list_username = itemView.findViewById(R.id.listUsername);
+            list_username = itemView.findViewById(R.id.listFullName);
         }
     }
 

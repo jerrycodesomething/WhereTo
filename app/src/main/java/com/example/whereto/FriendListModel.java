@@ -2,31 +2,23 @@ package com.example.whereto;
 
 public class FriendListModel {
 
-
     private String eMail;
-    private String userName;
+    private String fName;
 
-    private FriendListModel(){
+    public FriendListModel() {
 
     }
 
-    public FriendListModel(String eMail, String userName) {
+    public FriendListModel(String eMail, String fName){
         this.eMail = eMail;
+        this.fName = fName;
     }
 
     public String geteMail() {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getfName() {
+        return fName;
     }
 }
