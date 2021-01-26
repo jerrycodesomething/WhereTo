@@ -41,5 +41,4 @@
         android:fontFamily="@font/montserrat"
         android:text="TextView" />
 
-
 </RelativeLayout>

@@ -33,10 +33,7 @@ import com.google.firebase.firestore.Query;
 
 
 public class Social_layout_friends extends AppCompatActivity{
-
-    //widgets and view
-    private ImageButton btn;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,14 +75,11 @@ public class Social_layout_friends extends AppCompatActivity{
 
             }
         });
-
-        btn = (ImageButton) findViewById (R.id.backProfileButton);
     }
 
     public void BTP(View view){
-
         Intent intent =new Intent();
-        intent.setClass(Social_layout_friends.this,Profile.class);
+        intent.setClass(Social_layout_friends.this, homepage.class);
         startActivity(intent);
     }
 }
