@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,10 +30,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -50,12 +60,17 @@ public class CheckInActivity extends AppCompatActivity {
     //database
     private StorageReference reference = FirebaseStorage.getInstance().getReference();
     DatabaseReference root;
-
     FirebaseFirestore fStore;
     String userId;
     FirebaseAuth fAuth;
     FirebaseUser user;
-     Uri ImageUri;
+    Uri ImageUri;
+
+    //Location components
+    private Geocoder geocoder;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location lastLocation;
+    private double latitude, longitude;
 
     private Button bt_post;
 
@@ -64,22 +79,30 @@ public class CheckInActivity extends AppCompatActivity {
 
     private TextView tv_camera;
     private TextView tv_photo;
+    public TextView location;
 
     private PopupWindow pw_image;
     private Button bt_privacy;
     private PopupWindow pw_privacy;
 
     private String TAG = "tag";
+
     //need the permission to read the storage and camera
     private static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA};
+
+    public static final int TAKE_PHOTO = 101;
+    public static final int TAKE_CAMARA = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
 
+        location = findViewById(R.id.text_view_location);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        geocoder = new Geocoder(this);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -118,10 +141,6 @@ public class CheckInActivity extends AppCompatActivity {
                             Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
 
-
-
-
-
                         }
                         else {
                             //share to public:
@@ -134,7 +153,6 @@ public class CheckInActivity extends AppCompatActivity {
                         Intent intent = new Intent(CheckInActivity.this,Profile.class);
                         startActivity(intent);
                     }
-
 
                 }).show();
             }
@@ -193,13 +211,7 @@ public class CheckInActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
-
-
-    public static final int TAKE_PHOTO = 101;
-    public static final int TAKE_CAMARA = 100;
 
     private void initView() {
 
@@ -260,14 +272,6 @@ public class CheckInActivity extends AppCompatActivity {
         }
     }
 
-
-    /**
-     * check the permission
-     *
-     * @param activity
-     * @param permission
-     * @return
-     */
     public int verifyPermissions(Activity activity, java.lang.String permission) {
         int Permission = ActivityCompat.checkSelfPermission(activity, permission);
         if (Permission == PackageManager.PERMISSION_GRANTED) {
@@ -359,5 +363,28 @@ public class CheckInActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Uploading Failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //method to get device location
+    private void getDeviceLocation() {
+        try {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this , new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            lastLocation = task.getResult();
+                            if (lastLocation != null) {
+                                latitude= lastLocation.getLatitude();
+                                longitude= lastLocation.getLongitude();
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Toast.makeText(this , "Permission Denied! Please allow the WhereTo app to access location", Toast.LENGTH_SHORT).show();
+        }
     }
 }

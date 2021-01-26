@@ -14,11 +14,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,86 +33,53 @@ import com.google.firebase.firestore.Query;
 
 
 public class Social_layout_friends extends AppCompatActivity{
-    public static final String TAG = "TAG";
-
-    //widgets and view
-    private ImageButton btn;
-    private RecyclerView mFriendList;
-
-    //database
-    FirebaseFirestore fStore;
-    String userID;
-    FirebaseAuth fAuth;
-    FirestoreRecyclerAdapter adapter;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_layout_friends);
-        btn = (ImageButton) findViewById (R.id.backProfileButton);
 
-        mFriendList = findViewById(R.id.recyclerView);
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.social_tab);
+        TabItem visited_tab= (TabItem) findViewById(R.id.myfriends_tab);
+        TabItem favourites_tab= (TabItem) findViewById(R.id.addrequest_tab);
 
+        Fragment fragment = null;
+        fragment = new FragmentMyFriends();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_my_friends_output, fragment).commit();
 
-        //query
-        Query query =fStore.collection("users");
-        
-        //recycler options
-        FirestoreRecyclerOptions<FriendListModel> options = new FirestoreRecyclerOptions.Builder<FriendListModel>()
-                .setQuery(query, FriendListModel.class)
-                .build();
-
-        adapter = new FirestoreRecyclerAdapter<FriendListModel, FriendsViewHolder>(options) {
-            @NonNull
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friendlist_item, parent, false);
-                return new FriendsViewHolder(view);
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment fragment = null;
+                switch (tab.getPosition()){
+                    case 0:
+                        fragment = new FragmentMyFriends();
+                        break;
+                    case 1:
+                        fragment = new Fragment();
+                        break;
+                    default:
+                }
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_my_friends_output, fragment).commit();
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull FriendsViewHolder holder, int position, @NonNull FriendListModel model) {
-                holder.list_email.setText(model.geteMail());
-                holder.list_username.setText(model.getUserName());
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
-        };
-        mFriendList.setHasFixedSize(true);
-        mFriendList.setLayoutManager(new LinearLayoutManager(this));
-        mFriendList.setAdapter(adapter);
 
-    }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-    private class FriendsViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView list_email;
-        private TextView list_username;
-        public FriendsViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            list_email = itemView.findViewById(R.id.listEmail);
-            list_username = itemView.findViewById(R.id.listUsername);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
+            }
+        });
     }
 
     public void BTP(View view){
-
         Intent intent =new Intent();
-        intent.setClass(Social_layout_friends.this,Profile.class);
+        intent.setClass(Social_layout_friends.this, homepage.class);
         startActivity(intent);
     }
 }
