@@ -51,12 +51,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
     private final LatLng defaultLocation = new LatLng(4.2105, 101.9758);
     private double latitude, longitude;
     private int ProximityRadius = 1000;
-    private FloatingActionButton categories_btn;
-    private FloatingActionButton checkin_btn;
+    private FloatingActionButton categories_btn, checkin_btn, social_btn;
     public FusedLocationProviderClient fusedLocationProviderClient;
     public SupportMapFragment supportMapFragment;
     private LocationCallback locationCallback;
-    private boolean requestingLocationUpdates;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +73,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult == null) {
+                    Toast.makeText(getActivity(), "Please enable location services", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
@@ -85,6 +85,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
         //Button finder
         categories_btn = (FloatingActionButton) view.findViewById(R.id.categories_button);
         checkin_btn = view.findViewById(R.id.check_in_button);
+        social_btn = view.findViewById(R.id.social_button);
 
 
         //On Click listeners
@@ -92,6 +93,14 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CheckInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        social_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Social_layout_friends.class);
                 startActivity(intent);
             }
         });
@@ -162,9 +171,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        updateLocationUI();
-
         getDeviceLocation();
+
+        updateLocationUI();
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
@@ -252,9 +261,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onResume() {
         super.onResume();
-        //if(requestingLocationUpdates) {
-            createLocationRequest();
-        //}
+        createLocationRequest();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    private void stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
     }
 
     protected void createLocationRequest() {
@@ -263,7 +280,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
         locationRequest.setFastestInterval(1100);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        requestingLocationUpdates=true;
         startLocationUpdates(locationRequest);
     }
 
@@ -272,7 +288,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
             fusedLocationProviderClient.requestLocationUpdates(locationRequest,
                     locationCallback,
                     Looper.getMainLooper());
-            requestingLocationUpdates=true;
         }
     }
 

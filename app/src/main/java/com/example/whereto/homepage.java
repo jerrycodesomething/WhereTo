@@ -64,6 +64,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 user_name = documentSnapshot.getString("userName");
+
                 Toast.makeText(homepage.this, "Welcome back " + user_name, Toast.LENGTH_SHORT).show();
             }
         });

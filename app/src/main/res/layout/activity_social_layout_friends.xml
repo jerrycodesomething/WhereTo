@@ -10,6 +10,7 @@
         android:id="@+id/backProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         android:onClick="BTP"
         android:padding="5dp"
         android:src="@drawable/baseline_arrow_back_black_18dp" />

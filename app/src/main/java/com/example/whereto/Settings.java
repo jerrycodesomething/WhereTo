@@ -139,7 +139,6 @@ public class Settings extends AppCompatActivity {
                                 finish();
                             }
                         });
-                        Toast.makeText(Settings.this, "Email is changed", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

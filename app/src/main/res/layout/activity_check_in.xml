@@ -44,10 +44,10 @@
 
     <ImageView
         android:id="@+id/camere_iv"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="292dp"
+        android:layout_height="286dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_camera" />
 
     <LinearLayout
@@ -62,7 +62,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:textSize="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="13dp"
             android:text="Privacy Settings" />
 
         <Button
