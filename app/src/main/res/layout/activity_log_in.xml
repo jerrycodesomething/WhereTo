@@ -23,10 +23,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/montserrat"
             android:text="LOGIN"
-            android:layout_gravity="center"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="40sp"

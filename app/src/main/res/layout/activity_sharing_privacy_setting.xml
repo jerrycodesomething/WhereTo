@@ -13,39 +13,35 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="#C4C4C4"/>
+        android:background="#F1EAB2" />
 
     <TextView
+        android:id="@+id/tv_public"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_public"
-        android:textSize="20sp"
-        android:text="public"
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        />
+        android:text="public"
+        android:textColor="#97DA9A"
+        android:textSize="20sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="#C4C4C4"/>
 
     <TextView
         android:id="@+id/tv_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Friends Only"
         android:gravity="center"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        />
+        android:text="Friends Only"
+        android:textColor="#97DA9A"
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="#C4C4C4"/>
+        android:background="#F1EAB2" />
 
 
 
