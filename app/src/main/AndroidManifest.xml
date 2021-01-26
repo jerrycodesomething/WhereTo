@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- storage -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -47,21 +46,21 @@
 
         <activity android:name=".trytest" />
         <activity android:name=".ChangePassword" />
-        <activity android:name=".CheckInActivity" />
+        <activity android:name=".AccountStatusDisableorDeleteConfirmation" />
         <activity android:name=".AccountStatus" />
         <activity android:name=".FaqAbout" />
-        <activity android:name=".SUPorSUPWG" />
+        <activity android:name=".Profile" />
         <activity android:name=".Help" />
         <activity android:name=".Settings" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Social_layout_friends"/>
+        <activity android:name=".SUPorSUPWG" />
         <activity android:name=".ForgetPass" />
-        <activity android:name=".Profile" />
-        <activity android:name=".homepage" />
+        <activity android:name=".SignUp" />
         <activity android:name=".LogIn" />
+        <activity android:name=".homepage" />
         <activity android:name=".WelcomeScreen" />
-        <activity android:name=".Social_layout_friends" />
-        <activity android:name=".AccountStatusDisableorDeleteConfirmation"/>
-        <activity android:name=".SignUp">
+        <activity android:name=".CheckInActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

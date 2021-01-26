@@ -42,7 +42,7 @@ public class ForgetPass extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(ForgetPass.this, "Password send to your email", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(ForgetPass.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgetPass.this, "There is no account linked to this email. Please enter a valid email-address!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

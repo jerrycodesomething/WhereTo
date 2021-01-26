@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,6 +19,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class homepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +33,9 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FloatingActionButton checkInIcon;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId, user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +53,21 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+
+        //firestore instatiation
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                user_name = documentSnapshot.getString("userName");
+
+                Toast.makeText(homepage.this, "Welcome back " + user_name, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         navigationDrawer();
     }
@@ -86,8 +112,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent4);
                 break;
             case R.id.nav_logout:
-                Intent intent5 = new Intent(homepage.this,WelcomeScreen.class);
-                intent5.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent intent5 = new Intent(homepage.this,trytest.class);
                 startActivity(intent5);
                 break;
         }

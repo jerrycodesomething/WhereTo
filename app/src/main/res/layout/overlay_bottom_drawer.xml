@@ -27,7 +27,7 @@
         android:id="@+id/food_cat_text"
         android:layout_width="match_parent"
         android:layout_height="97dp"
-        android:text="Food"
+        android:text="All Foods"
         android:textSize="20dp"
         android:textColor="@color/green_text"
         android:gravity="center"
@@ -38,29 +38,24 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:id="@+id/mall_cat_text"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:text="Malls"
-        android:textSize="20dp"
-        android:textColor="@color/green_text"
-        android:gravity="center"
-        android:textAlignment="center"/>
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:id="@+id/supermarket_cat_text"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:text="Supermarkets"
-        android:textSize="20dp"
-        android:textColor="@color/green_text"
-        android:gravity="center"
-        android:textAlignment="center"/>
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
 </LinearLayout>

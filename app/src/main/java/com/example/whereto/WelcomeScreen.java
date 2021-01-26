@@ -20,7 +20,7 @@ public class WelcomeScreen extends AppCompatActivity {
     }
 
     public void goToSignUp(View view){
-        Intent goSignUp = new Intent(this,SUPorSUPWG.class);
+        Intent goSignUp = new Intent(this, SignUp.class);
         startActivity(goSignUp);
     }
 
