@@ -11,21 +11,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PinLocation extends AppCompatActivity {
-    private Button navigation_btn;
+    private FloatingActionButton navigation_btn;
 
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin_location);
 
-        navigation_btn=findViewById(R.id.navigation);
-
+        navigation_btn = findViewById(R.id.navigation);
         navigation_btn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("geo:47.4925,19.0513"));
-                Intent chooser = Intent.createChooser(intent,"launch maps");
-                startActivity(chooser);
+            public void onClick(View v){
+                Intent intent= new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("google.navigation: q= 22.659239,88.435534&mode=1"));
+
+
+                intent.setPackage("com.google.android.apps.maps");
+
+
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
             }
+
         });
     }
 }
