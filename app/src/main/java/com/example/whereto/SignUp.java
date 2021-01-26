@@ -95,6 +95,9 @@ public class SignUp extends AppCompatActivity {
 
 
 
+
+
+
                 fAuth.createUserWithEmailAndPassword(regemail.getEditText().getText().toString(),regpassword.getEditText().getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

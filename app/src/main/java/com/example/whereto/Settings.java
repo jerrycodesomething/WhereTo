@@ -95,7 +95,6 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-
         DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
