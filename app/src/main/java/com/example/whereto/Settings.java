@@ -52,7 +52,7 @@ public class Settings extends AppCompatActivity {
 
     //View variables
     TextView disableORdeleteAcc;
-    TextView username, fullname, email, password;
+    TextView fullname, email, password;
     ImageView profileImage;
     Button update;
 
@@ -75,14 +75,13 @@ public class Settings extends AppCompatActivity {
 
         //initialization of widgets
         disableORdeleteAcc = findViewById(R.id.settings_DisableorDeleteAccount);
-        username = findViewById(R.id.settings_username);
         fullname = findViewById(R.id.settings_fullname);
         email = findViewById(R.id.settings_email);
         profileImage = findViewById(R.id.settings_profileImage);
         password = findViewById(R.id.settings_password);
         update = findViewById(R.id.settings_buttonUpdate);
 
-        //firebase
+        //firebase instantiation
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -101,12 +100,10 @@ public class Settings extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                username.setText(documentSnapshot.getString("userName"));
                 fullname.setText(documentSnapshot.getString("fName"));
                 email.setText(documentSnapshot.getString("eMail"));
                 password.setText(documentSnapshot.getString("passWord"));
                 test = documentSnapshot.getString("fName");
-                Toast.makeText(Settings.this, "name" + test, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -114,7 +111,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //extract the data
-                if(username.getText().toString().isEmpty() || fullname.getText().toString().isEmpty() || email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+                if( fullname.getText().toString().isEmpty() || email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
                     Toast.makeText(Settings.this, "One or Many fields are empty", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -128,8 +125,9 @@ public class Settings extends AppCompatActivity {
                         Map<String,Object> edited = new HashMap<>();
                         edited.put("eMail",mail);
                         edited.put("fName",fullname.getText().toString());
-                        edited.put("userName",username.getText().toString());
                         edited.put("passWord",password.getText().toString());
+                        user.updatePassword(password.getText().toString());
+                        user.updateEmail(email.getText().toString());
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -151,7 +149,7 @@ public class Settings extends AppCompatActivity {
         disableORdeleteAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent confirm = new Intent(Settings.this,AccountStatus.class);
+                Intent confirm = new Intent(Settings.this, AccountStatusDisableorDeleteConfirmation.class);
                 startActivity(confirm);
             }
         });

@@ -60,9 +60,9 @@
             android:id="@+id/bt_share"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:layout_marginTop="13dp"
-            android:text="Privacy Settings" />
+            android:layout_marginTop="18dp"
+            android:text="Privacy Settings"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/bt_upload"

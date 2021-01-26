@@ -63,7 +63,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                user_name = documentSnapshot.getString("userName");
+                user_name = documentSnapshot.getString("fName");
 
                 Toast.makeText(homepage.this, "Welcome back " + user_name, Toast.LENGTH_SHORT).show();
             }
@@ -112,7 +112,7 @@ public class homepage extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent4);
                 break;
             case R.id.nav_logout:
-                Intent intent5 = new Intent(homepage.this,trytest.class);
+                Intent intent5 = new Intent(homepage.this, WelcomeScreen.class);
                 startActivity(intent5);
                 break;
         }

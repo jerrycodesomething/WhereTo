@@ -29,16 +29,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -56,6 +68,12 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
     public SupportMapFragment supportMapFragment;
     private LocationCallback locationCallback;
 
+    //Database components
+    private FirebaseUser user;
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
+    private String userId;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +81,12 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             checkUserLocationPermission();
         }
+
+        //firebase instantiation
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+        user = fAuth.getCurrentUser();
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         supportMapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -239,6 +263,18 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, Locatio
                             // Set the map's camera position to the current location of the device.
                             lastLocation = task.getResult();
                             if (lastLocation != null) {
+
+                                DocumentReference docRef = fStore.collection("users").document(user.getUid());
+                                Map<String,Object> edited = new HashMap<>();
+                                edited.put("latitude", lastLocation.getLatitude());
+                                edited.put("longitude", lastLocation.getLongitude());
+                                docRef.set(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getActivity(), "location added", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                                 mMap.setMyLocationEnabled(true);
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastLocation.getLatitude(),

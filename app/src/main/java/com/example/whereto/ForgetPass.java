@@ -51,7 +51,7 @@ public class ForgetPass extends AppCompatActivity {
     }
 
     public void goToLogin(View view) {
-        Intent intent = new Intent(this, LogIn.class);
+        Intent intent = new Intent(this, WelcomeScreen.class);
         startActivity(intent);
     }
 }

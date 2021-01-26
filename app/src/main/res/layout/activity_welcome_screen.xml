@@ -29,9 +29,9 @@
             android:layout_marginTop="220dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:text="The solution to your 'where to?' problems"
+            android:text="Ready to solve your where to problems?"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
