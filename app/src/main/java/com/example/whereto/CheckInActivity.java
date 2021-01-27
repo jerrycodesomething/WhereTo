@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -114,47 +116,58 @@ public class CheckInActivity extends AppCompatActivity {
         bt_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //if image == null
+                if (cameraIv == null) {
+                    cameraIv = (ImageView) findViewById(R.id.camere_iv);
 
-                postDialog pd = new postDialog(CheckInActivity.this);
-                pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
-                        .setCancel("Cancel", new postDialog.IOnCancelListener() {
-                            @Override
-                            public void onCancel(postDialog dialog) {
-
-                            }
-                        }).setConfirm("Confirm", new postDialog.IOnConfirmListener() {
-                    @Override
-                    public void onConfirm(postDialog dialog) {
+                    Resources resources = getResources();
+                    Drawable btnDrawable = resources.getDrawable(R.drawable.bg_error_camera);
+                    cameraIv.setBackground(btnDrawable);
+                    Toast.makeText(CheckInActivity.this, "please select a photo", Toast.LENGTH_SHORT).show();
 
 
-                        //set Post Click
+                } else {
+
+                    postDialog pd = new postDialog(CheckInActivity.this);
+                    pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
+                            .setCancel("Cancel", new postDialog.IOnCancelListener() {
+                                @Override
+                                public void onCancel(postDialog dialog) {
+
+                                }
+                            }).setConfirm("Confirm", new postDialog.IOnConfirmListener() {
+                        @Override
+                        public void onConfirm(postDialog dialog) {
 
 
-                        //share to friend:
-                        if (bt_privacy.getText().equals("Friend")){
+                            //set Post Click
 
 
-                            //connect to db
-                            Bitmap friendOnly = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
+                            //share to friend:
+                            if (bt_privacy.getText().equals("Friend")) {
 
-                            uploadtoFirebase1(ImageUri);
-                            Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
 
-                        }
-                        else {
-                            //share to public:
+                                //connect to db
+                                Bitmap friendOnly = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
+
+                                uploadtoFirebase1(ImageUri);
+                                Toast.makeText(CheckInActivity.this, "share your moment successfully and only visible to friends", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), ImagesActivity.class));
+
+                            } else {
+                                //share to public:
                                 Toast.makeText(CheckInActivity.this, "share your moment successfully and is visible to everyone", Toast.LENGTH_SHORT).show();
                                 //connect to db
-                            Bitmap publicCanSee = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
+                                Bitmap publicCanSee = ((BitmapDrawable) cameraIv.getDrawable()).getBitmap();
 
 
+                            }
+                            Intent intent = new Intent(CheckInActivity.this, Profile.class);
+                            startActivity(intent);
                         }
-                        Intent intent = new Intent(CheckInActivity.this,Profile.class);
-                        startActivity(intent);
-                    }
 
-                }).show();
+                    }).show();
+                }
             }
         });
 
