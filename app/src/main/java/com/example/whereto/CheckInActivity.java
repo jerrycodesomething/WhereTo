@@ -126,7 +126,13 @@ public class CheckInActivity extends AppCompatActivity {
                     Toast.makeText(CheckInActivity.this, "please select a photo", Toast.LENGTH_SHORT).show();
 
 
-                } else {
+                }if(bt_privacy.getText().equals("Share to")){
+                    bt_privacy = findViewById(R.id.bt_share);
+                    Resources resources = getResources();
+                    bt_privacy.setTextColor(resources.getColor(R.color.red));
+                    Toast.makeText(CheckInActivity.this, "please set sharing permission", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
                     postDialog pd = new postDialog(CheckInActivity.this);
                     pd.setTitle("WARM").setMessage("Are you sure to share this moment?")
