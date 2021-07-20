@@ -7,3 +7,5 @@ WhereTo is a native Android app developed in fulfilment of the course requiremen
 *Disclaimer: while the app fulfils most of the proposed functional and non-functional requirements, it is still in the alpha development stage, so there are a number of major bugs that have yet to be fixed and features that have yet to be implemented. 
 
 ## Screenshots
+![Screenshot1](https://raw.githubusercontent.com/jerrykingbob/WhereTo/master/Screenshot1.png)
+<br>![Screenshot2](https://raw.githubusercontent.com/jerrykingbob/WhereTo/master/Screenshot2.png)
